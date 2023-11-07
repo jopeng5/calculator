@@ -9,6 +9,7 @@ let num1 = 0;
 let num2 = 0;
 let operator = '';
 
+
 function operate(num1, num2, operator) {
   switch(operator) {
     case 'add': 
@@ -27,3 +28,17 @@ function operate(num1, num2, operator) {
       alert('error');
   }
 }
+
+// click button
+// add event listener on button to store text content of button in a variable
+// append var to display div
+const displayText = document.querySelector('#display-text');
+const buttons = document.querySelectorAll('button');
+
+function addToDisplay(e) {
+  num1 = e.target.textContent;
+  displayText.append(num1, ' ');
+  console.log(num1);
+}
+
+buttons.forEach(button => button.addEventListener('click', addToDisplay));
