@@ -10,38 +10,38 @@
   <h1>Calculator</h1>
   <main id="calc-body">
 
-    <div id="display"><span id="display-text">123 + 456</span></div>
+    <div id="display"><span id="display-text"></span></div>
 
       <!-- top row -->
-      <button id="fun">fun</button>
-      <button id="clear">clear</button>
-      <button id="divide">÷</button>
+      <button id="fun" data-fun>fun</button>
+      <button id="clear" data-clear>clear</button>
+      <button id="divide" data-operator>÷</button>
       
       <!-- second row -->
-      <button id="seven">7</button>
-      <button id="eight">8</button>
-      <button id="nine">9</button> 
-      <button id="multiply">x</button>
+      <button id="seven" data-num>7</button>
+      <button id="eight" data-num>8</button>
+      <button id="nine" data-num>9</button> 
+      <button id="multiply" data-operator>x</button>
       
       <!-- third row -->
-      <button id="four">4</button>
-      <button id="five">5</button>
-      <button id="six">6</button>
-      <button id="subtract">-</button>
+      <button id="four" data-num>4</button>
+      <button id="five" data-num>5</button>
+      <button id="six" data-num>6</button>
+      <button id="subtract" data-operator>-</button>
       
       <!-- fourth row -->
-      <button id="one">1</button>
-      <button id="two">2</button>
-      <button id="three">3</button>
-      <button id="add">+</button>
+      <button id="one" data-num>1</button>
+      <button id="two" data-num>2</button>
+      <button id="three" data-num>3</button>
+      <button id="add" data-operator>+</button>
       
       <!-- last row -->
-      <button id="zero">0</button>
-      <button id="decimal">.</button>
-      <button id="equal">=</button>
+      <button id="zero" data-num>0</button>
+      <button id="decimal" data-num>.</button>
+      <button id="equal"data-equals>=</button>
 
   </main>
 
 </body>
-<script src="script.js"></script>
+<script defer src="script.js"></script>
 </html>

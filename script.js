@@ -1,44 +1,64 @@
-
-// operations
-let add = (num1, num2) => num1 + num2;
-let subtract = (num1, num2) => num1 - num2;
-let multiply = (num1, num2) => num1 * num2;
-let divide = (num1, num2) => num1 / num2;
-
-let num1 = 0;
-let num2 = 0;
-let operator = '';
-
-
 function operate(num1, num2, operator) {
   switch(operator) {
-    case 'add': 
-      add(num1, num2);
-      break;
-    case 'subtract': 
-      subtract(num1, num2);
-      break;
-    case 'multiply': 
-      multiply(num1, num2);
-      break;
-    case 'divide':
-      divide(num1, num2);
-      break;
+    case '+': 
+      return num1 + num2;
+    case '-': 
+      return num1 - num2;
+    case 'x': 
+      return num1 * num2;
+    case '÷':
+      return num1 / num2;
     default:
       alert('error');
   }
 }
 
-// click button
-// add event listener on button to store text content of button in a variable
-// append var to display div
 const displayText = document.querySelector('#display-text');
-const buttons = document.querySelectorAll('button');
+const numButtons = document.querySelectorAll('[data-num]');
+const operatorButtons = document.querySelectorAll('[data-operator]');
+const equalsButton = document.querySelector('[data-equals]');
+const clearButton = document.querySelector('[data-clear]');
+const funButton = document.querySelector('[data-fun]');
 
-function addToDisplay(e) {
-  num1 = e.target.textContent;
-  displayText.append(num1, ' ');
-  console.log(num1);
+let firstNum = '';
+let secondNum = '';
+let currentOperator = '';
+let result = '';
+let newText = '';
+
+function addToDisplay(e) { 
+  newText = e.target.textContent;
+  displayText.append(newText);
 }
 
-buttons.forEach(button => button.addEventListener('click', addToDisplay));
+numButtons.forEach(button => button.addEventListener('click', addToDisplay));
+
+operatorButtons.forEach(button => button.addEventListener('click', () => assignOperation(button.textContent)));
+
+equalsButton.addEventListener('click', doOperation);
+
+clearButton.addEventListener('click', clear);
+
+
+function assignOperation(operator) {
+  firstNum = displayText.textContent;
+  currentOperator = operator;
+  displayText.textContent = '';
+}
+
+function doOperation() {
+  secondNum = displayText.textContent;
+  floatFirstNum = parseFloat(firstNum);
+  floatSecondNum = parseFloat(secondNum);
+  result = operate(floatFirstNum, floatSecondNum, currentOperator);
+  displayText.textContent = '';
+  displayText.append(result);
+}
+
+function clear() {
+  firstNum = '';
+  secondNum = '';
+  currentOperator = '';
+  displayText.textContent = '';
+  result = '';
+}
