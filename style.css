@@ -28,8 +28,12 @@
   justify-content: flex-end;
 }
 
-#display-text {
+#lower-display-text {
   align-self: flex-end;
+}
+
+#upper-display-text {
+  align-self: flex-start;
 }
 
 #clear {

@@ -1,3 +1,69 @@
+const lowerDisplayText = document.querySelector('#lower-display-text');
+const upperDisplayText = document.querySelector('#upper-display-text');
+const numButtons = document.querySelectorAll('[data-num]');
+const operatorButtons = document.querySelectorAll('[data-operator]');
+const equalsButton = document.querySelector('[data-equals]');
+const clearButton = document.querySelector('[data-clear]');
+const funButton = document.querySelector('[data-fun]');
+
+let lowerNum = '';
+let upperNum = '';
+let currentOperator = '';
+let result = '';
+let hasDecimal = false;
+
+numButtons.forEach(button => button.addEventListener('click', addToLower));
+
+operatorButtons.forEach(button => button.addEventListener('click', (e) => doOperation(e.target.textContent)));
+
+equalsButton.addEventListener('click', doOperation);
+
+clearButton.addEventListener('click', clear);
+
+function addToLower(e) { 
+  // do not allow more than one decimal
+  if (!hasDecimal && e.target.textContent === '.') {
+    hasDecimal = true;
+  } else if (hasDecimal && e.target.textContent === '.') {
+    return;
+  }
+
+  lowerNum += e.target.textContent;
+  lowerDisplayText.textContent = lowerNum;
+}
+
+function doOperation(operator) {
+  // check if firstNum exists before proceeding with operation
+  if (lowerNum === '') return;
+
+  // reset decimal check to allow decimals in second number
+  hasDecimal = false;
+
+  currentOperator = operator;
+
+  // check that both numbers and operator exist before doing operation
+  if (lowerNum !== '' && upperNum !== '' && currentOperator !== '') {
+    result = Number(operate(lowerNum, upperNum, currentOperator).toFixed(8));
+    lowerDisplayText.append(result);
+  }
+
+  moveLowerToUpper(currentOperator);
+  
+}
+
+function clear() {
+  lowerNum = '';
+  upperNum = '';
+  currentOperator = '';
+  lowerDisplayText.textContent = '';
+  upperDisplayText.textContent = '';
+  result = '';
+}
+
+function moveLowerToUpper(operator) {
+  upperDisplayText.textContent = lowerNum + ' ' + operator + ' ';
+}
+
 function operate(num1, num2, operator) {
   switch(operator) {
     case '+': 
@@ -11,54 +77,4 @@ function operate(num1, num2, operator) {
     default:
       alert('error');
   }
-}
-
-const displayText = document.querySelector('#display-text');
-const numButtons = document.querySelectorAll('[data-num]');
-const operatorButtons = document.querySelectorAll('[data-operator]');
-const equalsButton = document.querySelector('[data-equals]');
-const clearButton = document.querySelector('[data-clear]');
-const funButton = document.querySelector('[data-fun]');
-
-let firstNum = '';
-let secondNum = '';
-let currentOperator = '';
-let result = '';
-let newText = '';
-
-function addToDisplay(e) { 
-  newText = e.target.textContent;
-  displayText.append(newText);
-}
-
-numButtons.forEach(button => button.addEventListener('click', addToDisplay));
-
-operatorButtons.forEach(button => button.addEventListener('click', () => assignOperation(button.textContent)));
-
-equalsButton.addEventListener('click', doOperation);
-
-clearButton.addEventListener('click', clear);
-
-
-function assignOperation(operator) {
-  firstNum = displayText.textContent;
-  currentOperator = operator;
-  displayText.textContent = '';
-}
-
-function doOperation() {
-  secondNum = displayText.textContent;
-  floatFirstNum = parseFloat(firstNum);
-  floatSecondNum = parseFloat(secondNum);
-  result = operate(floatFirstNum, floatSecondNum, currentOperator);
-  displayText.textContent = '';
-  displayText.append(result);
-}
-
-function clear() {
-  firstNum = '';
-  secondNum = '';
-  currentOperator = '';
-  displayText.textContent = '';
-  result = '';
 }
