@@ -12,43 +12,45 @@ let currentOperator = '';
 let result = '';
 let hasDecimal = false;
 
-numButtons.forEach(button => button.addEventListener('click', addToLower));
-
-operatorButtons.forEach(button => button.addEventListener('click', (e) => doOperation(e.target.textContent)));
-
-equalsButton.addEventListener('click', doOperation);
-
-clearButton.addEventListener('click', clear);
-
-function addToLower(e) { 
+numButtons.forEach(button => button.addEventListener('click', (e) => {
   // do not allow more than one decimal
   if (!hasDecimal && e.target.textContent === '.') {
     hasDecimal = true;
   } else if (hasDecimal && e.target.textContent === '.') {
     return;
   }
-
+  
   lowerNum += e.target.textContent;
   lowerDisplayText.textContent = lowerNum;
-}
+}));
 
-function doOperation(operator) {
-  // check if firstNum exists before proceeding with operation
+operatorButtons.forEach(button => button.addEventListener('click', (e) => {
+  // check if lowerNum exists before proceeding with operation
   if (lowerNum === '') return;
 
   // reset decimal check to allow decimals in second number
   hasDecimal = false;
 
-  currentOperator = operator;
-
   // check that both numbers and operator exist before doing operation
-  if (lowerNum !== '' && upperNum !== '' && currentOperator !== '') {
-    result = Number(operate(lowerNum, upperNum, currentOperator).toFixed(8));
-    lowerDisplayText.append(result);
+  if (lowerNum && upperNum && currentOperator) {
+    result = operate(lowerNum, upperNum, currentOperator);
+  } else { // if either of the 2 numbers or operator is missing, return the number currently on the lower display
+    result = parseFloat(lowerNum);
   }
-
+  currentOperator = e.target.textContent;
   moveLowerToUpper(currentOperator);
   
+}));
+
+// equalsButton.addEventListener('click', );
+
+// clearButton.addEventListener('click', clear);
+
+function moveLowerToUpper(operator) {
+  upperNum = result + ' ' + operator + ' ';
+  upperDisplayText.textContent = upperNum;
+  lowerDisplayText.textContent = '';
+  lowerNum = '';
 }
 
 function clear() {
@@ -60,20 +62,18 @@ function clear() {
   result = '';
 }
 
-function moveLowerToUpper(operator) {
-  upperDisplayText.textContent = lowerNum + ' ' + operator + ' ';
-}
-
 function operate(num1, num2, operator) {
+  let floatNum1 = parseFloat(num1);
+  let floatNum2 = parseFloat(num2);
   switch(operator) {
     case '+': 
-      return num1 + num2;
+      return floatNum1 + floatNum2;
     case '-': 
-      return num1 - num2;
+      return floatNum1 - floatNum2;
     case 'x': 
-      return num1 * num2;
+      return floatNum1 * floatNum2;
     case '÷':
-      return num1 / num2;
+      return floatNum1 / floatNum2;
     default:
       alert('error');
   }
