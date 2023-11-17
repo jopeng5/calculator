@@ -13,19 +13,19 @@ let result = '';
 let hasDecimal = false;
 
 numButtons.forEach(button => button.addEventListener('click', (e) => {
-  // do not allow more than one decimal
+  // do not allow more than one decimal in first number
   if (!hasDecimal && e.target.textContent === '.') {
     hasDecimal = true;
   } else if (hasDecimal && e.target.textContent === '.') {
     return;
   }
-  
+
   lowerNum += e.target.textContent;
   lowerDisplayText.textContent = lowerNum;
 }));
 
 operatorButtons.forEach(button => button.addEventListener('click', (e) => {
-  // check if lowerNum exists before proceeding with operation
+  // check that lowerNum exists before proceeding with operation
   if (lowerNum === '') return;
 
   // reset decimal check to allow decimals in second number
@@ -33,36 +33,44 @@ operatorButtons.forEach(button => button.addEventListener('click', (e) => {
 
   // check that both numbers and operator exist before doing operation
   if (lowerNum && upperNum && currentOperator) {
-    result = operate(lowerNum, upperNum, currentOperator);
-  } else { // if either of the 2 numbers or operator is missing, return the number currently on the lower display
+    if (parseFloat(lowerNum) === 0 && currentOperator === '÷') {
+        alert('Sorry, you can\'t divide by zero!');
+    } else {
+      result = Math.round(operate(result, lowerNum, currentOperator) * 1000000) / 1000000;
+    }
+  } else {
     result = parseFloat(lowerNum);
   }
   currentOperator = e.target.textContent;
   moveLowerToUpper(currentOperator);
-  
 }));
 
 equalsButton.addEventListener('click', (e) => {
-  lowerDisplayText.textContent = operate(result, lowerNum, currentOperator);
-  upperDisplayText.textContent = '';
+  // do not allow operation if operator or second number is missing
+  if (!result || !lowerNum || !currentOperator) {
+    alert('You\'re missing another number or operator!');
+  } else if (parseFloat(lowerNum) === 0 && currentOperator === '÷') {
+    alert('Sorry, you can\'t divide by zero!');
+  } else {
+    lowerDisplayText.textContent = Math.round(operate(result, lowerNum, currentOperator) * 1000000) / 1000000;
+    upperDisplayText.textContent = '';
+  }
 });
 
-clearButton.addEventListener('click', clear);
+clearButton.addEventListener('click', () => {
+  lowerNum = '';
+  upperNum = '';
+  currentOperator = '';
+  result = '';
+  lowerDisplayText.textContent = '';
+  upperDisplayText.textContent = '';
+});
 
 function moveLowerToUpper(operator) {
   upperNum = result + ' ' + operator + ' ';
   upperDisplayText.textContent = upperNum;
   lowerDisplayText.textContent = '';
   lowerNum = '';
-}
-
-function clear() {
-  lowerNum = '';
-  upperNum = '';
-  currentOperator = '';
-  lowerDisplayText.textContent = '';
-  upperDisplayText.textContent = '';
-  result = '';
 }
 
 function operate(num1, num2, operator) {
