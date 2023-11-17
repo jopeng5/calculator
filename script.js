@@ -42,9 +42,12 @@ operatorButtons.forEach(button => button.addEventListener('click', (e) => {
   
 }));
 
-// equalsButton.addEventListener('click', );
+equalsButton.addEventListener('click', (e) => {
+  lowerDisplayText.textContent = operate(result, lowerNum, currentOperator);
+  upperDisplayText.textContent = '';
+});
 
-// clearButton.addEventListener('click', clear);
+clearButton.addEventListener('click', clear);
 
 function moveLowerToUpper(operator) {
   upperNum = result + ' ' + operator + ' ';
