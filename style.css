@@ -1,22 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500&display=swap');
+
 /* reset */
-:root{
+:root {
   box-sizing: border-box;
 }
 
-*, *::before, *::after{
+*, *::before, *::after {
   box-sizing: inherit;
   margin: 0;
   padding: 0;
 }
 
-#calc-body {
+body {
   display: grid;
-  width: 400px;
-  height: 35vh;
+  width: 100%;
+  min-height: 100vh;
+  background-color: black;
+  font-family: 'Manrope', sans-serif;
+}
+
+#calc-body {
+  place-self: center;
+  display: grid;
+  height: 700px;
+  width: 520px;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(6, 1fr);
   column-gap: 10px;
-  row-gap: 10px
+  row-gap: 10px;
+  background-color: #aed8f2;
+  border: 2px solid black;
+  border-radius: 15px;
+  padding: 40px;
 }
 
 #display {
@@ -26,14 +41,34 @@
   grid-row-end: 2;
   display: flex;
   justify-content: flex-end;
+  border: 2px solid black;
+  border-radius: 15px;
+  background-color: #f2f2f2;
 }
 
 #lower-display-text {
   align-self: flex-end;
+  padding: 6px;
+  font-size: xx-large;
 }
 
 #upper-display-text {
   align-self: flex-start;
+  padding: 6px;
+  font-size: x-large;
+}
+
+button {
+  outline: none;
+  background: transparent;
+  border-radius: 15px;
+  border: 2px solid darkslategray;
+  font-size: larger;
+  background-color: #ffffe1;
+}
+
+button:hover {
+  background-image: linear-gradient(rgb(0 0 0/8%) 0 0)
 }
 
 #clear {
@@ -41,6 +76,7 @@
   grid-column-end: 4;
   grid-row-start: 2;
   grid-row-end: 3;
+  background-color: #ffd3c4;
 }
 
 #equal {
@@ -48,4 +84,17 @@
   grid-column-end: 5;
   grid-row-start: 6;
   grid-row-end: 7;
+  background-color: #89c4e9;
+}
+
+#pop {
+  background-color: #eebfd9;
+}
+
+#decimal {
+  background-color:#c4d7d1;
+}
+
+.operator {
+  background-color: #f2dea2;
 }

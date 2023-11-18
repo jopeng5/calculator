@@ -3,48 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculator</title>
+  <title>Pastel Calculator</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Calculator</h1>
   <main id="calc-body">
-
     <div id="display">
       <span id="upper-display-text"></span>
       <span id="lower-display-text"></span>
     </div>
 
       <!-- top row -->
-      <button id="fun" data-fun>fun</button>
+      <button id="pop" data-pop>pop</button>
       <button id="clear" data-clear>clear</button>
-      <button id="divide" data-operator>÷</button>
+      <button id="divide" class="operator" data-operator>÷</button>
       
       <!-- second row -->
       <button id="seven" data-num>7</button>
       <button id="eight" data-num>8</button>
       <button id="nine" data-num>9</button> 
-      <button id="multiply" data-operator>x</button>
+      <button id="multiply" class="operator" data-operator>x</button>
       
       <!-- third row -->
       <button id="four" data-num>4</button>
       <button id="five" data-num>5</button>
       <button id="six" data-num>6</button>
-      <button id="subtract" data-operator>-</button>
+      <button id="subtract" class="operator" data-operator>-</button>
       
       <!-- fourth row -->
       <button id="one" data-num>1</button>
       <button id="two" data-num>2</button>
       <button id="three" data-num>3</button>
-      <button id="add" data-operator>+</button>
+      <button id="add" class="operator" data-operator>+</button>
       
-      <!-- last row -->
+      <!-- bottom row -->
       <button id="zero" data-num>0</button>
       <button id="decimal" data-num>.</button>
-      <button id="equal"data-equals>=</button>
-
+      <button id="equal" data-equals>=</button>
   </main>
-
 </body>
-<script defer src="script.js"></script>
+<script src="script.js"></script>
 </html>

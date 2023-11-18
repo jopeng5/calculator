@@ -4,13 +4,14 @@ const numButtons = document.querySelectorAll('[data-num]');
 const operatorButtons = document.querySelectorAll('[data-operator]');
 const equalsButton = document.querySelector('[data-equals]');
 const clearButton = document.querySelector('[data-clear]');
-const funButton = document.querySelector('[data-fun]');
+const popButton = document.querySelector('[data-pop]');
 
 let lowerNum = '';
 let upperNum = '';
 let currentOperator = '';
 let result = '';
 let hasDecimal = false;
+const bubbleAudio = new Audio('./assets/bubble-sound.mp3');
 
 numButtons.forEach(button => button.addEventListener('click', (e) => {
   // do not allow more than one decimal in first number
@@ -64,6 +65,12 @@ clearButton.addEventListener('click', () => {
   result = '';
   lowerDisplayText.textContent = '';
   upperDisplayText.textContent = '';
+});
+
+popButton.addEventListener('click', () => {
+  bubbleAudio.play();
+  upperDisplayText.textContent = '';
+  lowerDisplayText.textContent = 'POP! :)';
 });
 
 function moveLowerToUpper(operator) {
