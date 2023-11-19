@@ -24,6 +24,7 @@ numButtons.forEach(button => button.addEventListener('click', (e) => {
   // prevent user from starting a new operation before clicking 'clear'
   if (lowerNum !== '' && result !== '' && parseFloat(operate(result, lowerNum, currentOperator)) == parseFloat(lowerDisplayText.textContent)) {
     alert('Please click the "clear" button if you\'d like to start a new operation, or click an operator to continue your current operation!');
+    return;
   } else {
     lowerNum += e.target.textContent;
     lowerDisplayText.textContent = lowerNum;
