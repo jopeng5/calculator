@@ -19,10 +19,15 @@ numButtons.forEach(button => button.addEventListener('click', (e) => {
     hasDecimal = true;
   } else if (hasDecimal && e.target.textContent === '.') {
     return;
+  } 
+  
+  // prevent user from starting a new operation before clicking 'clear'
+  if (lowerNum !== '' && result !== '' && parseFloat(operate(result, lowerNum, currentOperator)) == parseFloat(lowerDisplayText.textContent)) {
+    alert('Please click the "clear" button if you\'d like to start a new operation, or click an operator to continue your current operation!');
+  } else {
+    lowerNum += e.target.textContent;
+    lowerDisplayText.textContent = lowerNum;
   }
-
-  lowerNum += e.target.textContent;
-  lowerDisplayText.textContent = lowerNum;
 }));
 
 operatorButtons.forEach(button => button.addEventListener('click', (e) => {
